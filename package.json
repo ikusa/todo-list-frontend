@@ -20,5 +20,11 @@
     "babel-preset-expo": "^6.0.0",
     "typescript": "^3.4.5"
   },
+  "prettier": {
+    "bracketSpacing": false,
+    "singleQuote": true,
+    "trailingComma": "all",
+    "arrowParens": "always"
+  },
   "private": true
 }
