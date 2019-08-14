@@ -3,13 +3,14 @@ import {
   StyleSheet,
   View,
   Text,
-  TextInput,
   TouchableOpacity,
   AsyncStorage,
+  TextInput,
 } from 'react-native';
 import {useMutation} from '@apollo/react-hooks';
 import {loginQuery} from '../query/auth';
 import {LoginData, LoginDataVariables} from '../generated/LoginData';
+import {textInputStyleOutline} from './styles/TextInputStyle';
 
 type Props = {
   setLoginStatus: (status: boolean) => void;
@@ -22,18 +23,19 @@ export default function Login({setLoginStatus}: Props) {
     <View style={styles.cardContainer}>
       <Text style={{fontSize: 24, fontWeight: '500'}}>Login</Text>
       <TextInput
-        style={styles.form}
+        style={[styles.form, textInputStyleOutline]}
         value={email}
         onChangeText={setEmail}
         placeholder="Email"
         textContentType="emailAddress"
       />
       <TextInput
-        style={styles.form}
+        style={[styles.form, textInputStyleOutline]}
         value={password}
         onChangeText={setPassword}
         placeholder="Password"
         textContentType="password"
+        secureTextEntry={true}
       />
       <TouchableOpacity
         style={{
