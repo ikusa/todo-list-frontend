@@ -6,6 +6,18 @@ export let createTodoQuery = gql`
       id
       task
       done
+      dueDate
+    }
+  }
+`;
+
+export let todoQuery = gql`
+  query TodoData {
+    todoes {
+      id
+      task
+      done
+      dueDate
     }
   }
 `;
