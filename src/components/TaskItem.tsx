@@ -29,18 +29,17 @@ export default function TaskItem({
   let [done, setDone] = useState(doneProp);
   let [dueDate, setDueDate] = useState(new Date(dueDateProp));
   let debouncedTask = useDebounce(task, 200);
-  let debouncedDone = useDebounce(done, 200);
   let debouncedDueDate = useDebounce(dueDate, 200);
   useEffect(() => {
     updateTodo({
       variables: {
         id,
         task: debouncedTask,
-        done: debouncedDone,
+        done,
         dueDate: debouncedDueDate,
       },
     });
-  }, [debouncedTask, id, updateTodo, debouncedDone, debouncedDueDate]);
+  }, [debouncedTask, id, updateTodo, done, debouncedDueDate]);
   return (
     <View style={styles.taskContainer}>
       <TextInput

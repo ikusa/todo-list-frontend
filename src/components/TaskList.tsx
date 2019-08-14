@@ -21,9 +21,32 @@ export default function TaskList() {
         <CreateTask refetch={refetch} />
       </View>
       <ScrollView showsVerticalScrollIndicator={true}>
-        {data.todoes.map((todo) => {
-          return <TaskItem key={todo.id} {...todo} />;
-        })}
+        <View style={{borderBottomWidth: 1}}>
+          <Text style={{fontSize: 24, fontWeight: '500'}}>Current Todo</Text>
+        </View>
+        {data.todoes
+          .filter(({done}) => !done)
+          .sort(({dueDate: firstDueDate}, {dueDate: secondDueDate}) => {
+            let a = new Date(firstDueDate);
+            let b = new Date(secondDueDate);
+            return a.getTime() - b.getTime();
+          })
+          .map((todo) => {
+            return <TaskItem key={todo.id} {...todo} />;
+          })}
+        <View style={{borderBottomWidth: 1}}>
+          <Text style={{fontSize: 24, fontWeight: '500'}}>Finished Todo</Text>
+        </View>
+        {data.todoes
+          .filter(({done}) => done)
+          .sort(({dueDate: firstDueDate}, {dueDate: secondDueDate}) => {
+            let a = new Date(firstDueDate);
+            let b = new Date(secondDueDate);
+            return a.getTime() - b.getTime();
+          })
+          .map((todo) => {
+            return <TaskItem key={todo.id} {...todo} />;
+          })}
       </ScrollView>
     </View>
   );
