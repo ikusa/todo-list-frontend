@@ -11,6 +11,7 @@ export interface CreateTodoData_createTodo {
   id: string;
   task: string;
   done: boolean;
+  dueDate: any;
 }
 
 export interface CreateTodoData {
