@@ -10,7 +10,10 @@ import {
   CreateTodoDataVariables,
 } from '../generated/CreateTodoData';
 
-export default function CreateTask() {
+type Props = {
+  refetch: () => void;
+};
+export default function CreateTask({refetch}: Props) {
   let [task, setTask] = useState('');
   let [dueDate, setDate] = useState(new Date());
   let [createTodo] = useMutation<CreateTodoData, CreateTodoDataVariables>(
@@ -27,10 +30,11 @@ export default function CreateTask() {
       <DateInput date={dueDate} onChange={setDate} />
       <Button
         title="Add"
-        onPress={() => {
-          createTodo({variables: {task, dueDate: dueDate.toISOString()}});
+        onPress={async () => {
+          await createTodo({variables: {task, dueDate: dueDate.toISOString()}});
           setTask('');
           setDate(new Date());
+          refetch();
         }}
       />
     </View>

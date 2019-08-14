@@ -3,10 +3,10 @@
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL mutation operation: CreateTodoData
+// GraphQL mutation operation: UpdateTodoData
 // ====================================================
 
-export interface CreateTodoData_createTodo {
+export interface UpdateTodoData_updateTodo {
   __typename: "Todo";
   id: string;
   task: string;
@@ -14,11 +14,13 @@ export interface CreateTodoData_createTodo {
   dueDate: any;
 }
 
-export interface CreateTodoData {
-  createTodo: CreateTodoData_createTodo;
+export interface UpdateTodoData {
+  updateTodo: UpdateTodoData_updateTodo;
 }
 
-export interface CreateTodoDataVariables {
-  task: string;
-  dueDate: string;
+export interface UpdateTodoDataVariables {
+  id: string;
+  task?: string | null;
+  done?: boolean | null;
+  dueDate?: string | null;
 }

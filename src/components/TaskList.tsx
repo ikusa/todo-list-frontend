@@ -1,17 +1,29 @@
 import React from 'react';
 import {StyleSheet, View, Text, ScrollView} from 'react-native';
+import {useQuery} from '@apollo/react-hooks';
+
 import TaskItem from './TaskItem';
 import CreateTask from './CreateTask';
+import {todoQuery} from '../query/todo';
+import {TodoData} from '../generated/TodoData';
 
 export default function TaskList() {
+  let {data, loading, refetch} = useQuery<TodoData>(todoQuery);
+  console.log('loading >>', loading);
+  console.log('data >>', data);
+  if (loading || !data) {
+    return <Text>Loading...</Text>;
+  }
   return (
     <View style={styles.cardContainer}>
       <View style={styles.headerContainer}>
         <Text style={{fontSize: 20, fontWeight: 'bold'}}>To-do List</Text>
-        <CreateTask />
+        <CreateTask refetch={refetch} />
       </View>
       <ScrollView showsVerticalScrollIndicator={true}>
-        <TaskItem />
+        {data.todoes.map((todo) => {
+          return <TaskItem key={todo.id} {...todo} />;
+        })}
       </ScrollView>
     </View>
   );
