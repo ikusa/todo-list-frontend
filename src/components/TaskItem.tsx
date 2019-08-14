@@ -2,12 +2,18 @@ import React from 'react';
 import {StyleSheet, View, Text, CheckBox} from 'react-native';
 import DateInput from './DateInput';
 
-export default function TaskItem() {
+type Props = {
+  id: string;
+  task: string;
+  done: boolean;
+  dueDate: string;
+};
+export default function TaskItem({task, done, dueDate}: Props) {
   return (
     <View style={styles.taskContainer}>
-      <Text>Beli belanja bulanan</Text>
-      <DateInput date={new Date()} onChange={() => {}} />
-      <CheckBox />
+      <Text>{task}</Text>
+      <DateInput date={new Date(dueDate)} onChange={() => {}} />
+      <CheckBox value={done} />
     </View>
   );
 }
