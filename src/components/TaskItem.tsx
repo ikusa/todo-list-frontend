@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import {StyleSheet, View, CheckBox, TextInput} from 'react-native';
 import DateInput from './DateInput';
 import {useMutation} from '@apollo/react-hooks';
@@ -30,16 +30,21 @@ export default function TaskItem({
   let [dueDate, setDueDate] = useState(new Date(dueDateProp));
   let debouncedTask = useDebounce(task, 200);
   let debouncedDueDate = useDebounce(dueDate, 200);
+  let mountedRef = useRef(false);
   useEffect(() => {
-    updateTodo({
-      variables: {
-        id,
-        task: debouncedTask,
-        done,
-        dueDate: debouncedDueDate,
-      },
-    });
-  }, [debouncedTask, id, updateTodo, done, debouncedDueDate]);
+    if (mountedRef.current) {
+      updateTodo({
+        variables: {
+          id,
+          task: debouncedTask,
+          done,
+          dueDate: debouncedDueDate,
+        },
+      });
+    } else {
+      mountedRef.current = true;
+    }
+  }, [debouncedTask, id, updateTodo, done, debouncedDueDate, mountedRef]);
   return (
     <View style={styles.taskContainer}>
       <TextInput

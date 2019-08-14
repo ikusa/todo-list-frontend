@@ -8,9 +8,9 @@ import {todoQuery} from '../query/todo';
 import {TodoData} from '../generated/TodoData';
 
 export default function TaskList() {
-  let {data, loading, refetch} = useQuery<TodoData>(todoQuery);
-  console.log('loading >>', loading);
-  console.log('data >>', data);
+  let {data, loading, refetch} = useQuery<TodoData>(todoQuery, {
+    fetchPolicy: 'network-only',
+  });
   if (loading || !data) {
     return <Text>Loading...</Text>;
   }
